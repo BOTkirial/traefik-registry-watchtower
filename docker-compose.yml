@@ -47,7 +47,7 @@ services:
       - internal
       - web
     ports:
-      - "80:5000"
+      - "8080:5000"
   
   # watchtower pour la ci/cd, check toutes les 5minutes si une image a été mise à jour, et si oui pull la nouvelle et redémarre le container
   watchtower:
