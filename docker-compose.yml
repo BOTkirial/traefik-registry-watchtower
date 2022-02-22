@@ -9,7 +9,7 @@ networks:
 services:
 
   portfolio:
-    image: cedricmarinot/docker-portfolio
+    image: ghcr.io/botkirial/portfolio:master
     container_name: portfolio
     restart: unless-stopped
     labels:
@@ -22,7 +22,7 @@ services:
       - web
      
   tethys:
-    image: cedricmarinot/docker-tethys
+    image: ghcr.io/botkirial/tethys:master
     container_name: tethys
     restart: unless-stopped
     labels:
@@ -35,7 +35,7 @@ services:
       - web
     
   livechat:
-    image: cedricmarinot/docker-livechat
+    image: ghcr.io/botkirial/nodejsddimchat:main
     container_name: livechat
     restart: unless-stopped
     labels:
