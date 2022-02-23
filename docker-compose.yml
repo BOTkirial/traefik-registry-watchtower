@@ -58,8 +58,12 @@ services:
     image: registry:2
     container_name: registry
     environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/registry.password
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     volumes:
+      - /auth:/auth
       - /docker-registry/data:/data
     labels:
       - traefik.http.routers.registry.rule=Host(`registry.cedricmarinot.fr`)
