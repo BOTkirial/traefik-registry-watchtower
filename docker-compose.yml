@@ -97,6 +97,10 @@ services:
       - "5000:5000"
     labels:
       - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=10.8.0.0/24"
+      - traefik.http.routers.monitor.rule=Host(`monitor.cedricmarinot.fr`)
+      - traefik.http.routers.monitor.tls=true
+      - traefik.http.routers.monitor.tls.certresolver=lets-encrypt
+      - traefik.port=80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /root/traefik/traefik.toml:/traefik.toml
