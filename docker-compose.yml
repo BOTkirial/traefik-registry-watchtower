@@ -43,7 +43,7 @@ services:
       - traefik.http.routers.livechat.tls=true
       - traefik.http.routers.livechat.tls.certresolver=lets-encrypt
       - traefik.port=80
-      - traefik.http.services.livechat.loadbalancer.server.port=5000
+      - traefik.http.services.livechat.loadbalancer.server.port=5555
     networks:
       - internal
       - web
