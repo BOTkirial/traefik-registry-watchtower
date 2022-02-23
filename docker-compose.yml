@@ -62,11 +62,11 @@ services:
     volumes:
       - /docker-registry/data:/data
     labels:
-      - traefik.http.routers.livechat.rule=Host(`registry.cedricmarinot.fr`)
-      - traefik.http.routers.livechat.tls=true
-      - traefik.http.routers.livechat.tls.certresolver=lets-encrypt
-      - traefik.port=80
-      - traefik.http.services.livechat.loadbalancer.server.port=5000
+      - traefik.http.routers.registry.rule=Host(`registry.cedricmarinot.fr`)
+      - traefik.http.routers.registry.tls=true
+      - traefik.http.routers.registry.tls.certresolver=lets-encrypt
+      - traefik.port=5000
+      - traefik.http.services.registry.loadbalancer.server.port=5000
 
   # watchtower pour la ci/cd, check toutes les 5minutes si une image a été mise à jour, et si oui pull la nouvelle et redémarre le container
   watchtower:
@@ -90,6 +90,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "5000:5000"
     labels:
       - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=10.8.0.0/24"
     volumes:
