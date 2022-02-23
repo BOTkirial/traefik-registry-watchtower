@@ -9,7 +9,7 @@ networks:
 services:
 
   portfolio:
-    image: ghcr.io/botkirial/portfolio:master
+    image: registry.cedricmarinot.fr/botkirial/portfolio
     container_name: portfolio
     restart: unless-stopped
     depends_on:
@@ -24,7 +24,7 @@ services:
       - web
      
   tethys:
-    image: ghcr.io/botkirial/tethys:master
+    image: registry.cedricmarinot.fr/botkirial/tethys
     container_name: tethys
     restart: unless-stopped
     depends_on:
@@ -39,7 +39,7 @@ services:
       - web
     
   livechat:
-    image: ghcr.io/botkirial/nodejsddimchat:main
+    image: registry.cedricmarinot.fr/botkirial/nodejsddimchat
     container_name: livechat
     restart: unless-stopped
     depends_on:
