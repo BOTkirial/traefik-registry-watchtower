@@ -12,6 +12,8 @@ services:
     image: ghcr.io/botkirial/portfolio:master
     container_name: portfolio
     restart: unless-stopped
+    depends_on:
+      - "watchtower"
     labels:
       - traefik.http.routers.portfolio.rule=Host(`cedricmarinot.fr`)
       - traefik.http.routers.portfolio.tls=true
@@ -25,6 +27,8 @@ services:
     image: ghcr.io/botkirial/tethys:master
     container_name: tethys
     restart: unless-stopped
+    depends_on:
+      - "watchtower"
     labels:
       - traefik.http.routers.tethys.rule=Host(`tethys.cedricmarinot.fr`)
       - traefik.http.routers.tethys.tls=true
@@ -38,6 +42,8 @@ services:
     image: ghcr.io/botkirial/nodejsddimchat:main
     container_name: livechat
     restart: unless-stopped
+    depends_on:
+      - "watchtower"
     labels:
       - traefik.http.routers.livechat.rule=Host(`livechat.cedricmarinot.fr`)
       - traefik.http.routers.livechat.tls=true
@@ -47,10 +53,25 @@ services:
     networks:
       - internal
       - web
-  
+      
+  registry:
+    image: registry:2
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+    volumes:
+      - /docker-registry/data:/data
+    labels:
+      - traefik.http.routers.livechat.rule=Host(`registry.cedricmarinot.fr`)
+      - traefik.http.routers.livechat.tls=true
+      - traefik.http.routers.livechat.tls.certresolver=lets-encrypt
+      - traefik.port=80
+      - traefik.http.services.livechat.loadbalancer.server.port=5000
+
   # watchtower pour la ci/cd, check toutes les 5minutes si une image a été mise à jour, et si oui pull la nouvelle et redémarre le container
   watchtower:
     image: containrrr/watchtower
+    depends_on:
+      - "traefik"
     container_name: watchtower
     restart: unless-stopped
     volumes:
@@ -61,6 +82,8 @@ services:
     image: traefik:v2.6
     container_name: traefik
     restart: unless-stopped
+    depends_on:
+      - "registry"
     networks:
       - web
     ports:
