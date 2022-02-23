@@ -57,17 +57,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --cleanup --schedule "5 * * * *"
 
-  registry:
-    image: registry:2
-    ports:
-    - "5000:5000"
-    environment:
-      REGISTRY_AUTH: htpasswd
-      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
-      REGISTRY_AUTH_HTPASSWD_PATH: /auth/registry.password
-    volumes:
-      - ./auth:/auth
-
   reverse-proxy:
     image: traefik:v2.6
     container_name: traefik
