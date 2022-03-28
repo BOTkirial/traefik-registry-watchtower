@@ -29,6 +29,8 @@ services:
     networks:
       - internal
       - web
+      # commande pour vider l'espace inutilisé
+      # docker exec -it -u root registry bin/registry garbage-collect --delete-untagged /data/config.yml
       
   # watchtower pour la ci/cd, check toutes les 5minutes si une image a été mise à jour, et si oui pull la nouvelle et redémarre le container
   watchtower:
